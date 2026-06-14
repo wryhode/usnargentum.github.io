@@ -294,7 +294,8 @@
       .sponsor-logo-item.primary img { height:80px; }
       .sponsor-logo-item.secondary img { height:55px; }
       #team { padding:0; height:100svh; display:flex; flex-direction:column; justify-content:center; }
-      .team-card { width:140px; }
+      .team-card { width:80vw; }
+      .team-ticker { gap:1rem; }
       .f-grid { grid-template-columns:1fr; text-align:left; gap:1.5rem; }
       .f-socials { justify-content:flex-start; }
       .f-socials-col { align-items:flex-start; }
@@ -677,10 +678,68 @@
   }
   window.addEventListener('scroll', updateNav, { passive: true });
   updateNav();
+  // TICKER — auto-scroll + drag (mouse) + touch swipe
   var ticker = document.getElementById('teamTicker');
   if (ticker) {
-    var clone = ticker.innerHTML;
-    ticker.innerHTML += clone;
+    // Clone cards for infinite loop
+    ticker.innerHTML += ticker.innerHTML;
+
+    var pos = 0;
+    var speed = window.innerWidth <= 768 ? 0.5 : 1.2;
+    var halfW = ticker.scrollWidth / 2;
+    var dragging = false;
+    var dragStartX = 0;
+    var dragStartPos = 0;
+    var autoPlay = true;
+    var raf;
+
+    function step() {
+      if (autoPlay && !dragging) {
+        pos += speed;
+        if (pos >= halfW) pos -= halfW;
+        ticker.style.transform = 'translateX(' + (-pos) + 'px)';
+      }
+      raf = requestAnimationFrame(step);
+    }
+    ticker.style.animation = 'none';
+    raf = requestAnimationFrame(step);
+
+    // MOUSE drag (desktop)
+    ticker.addEventListener('mousedown', function(e) {
+      dragging = true; autoPlay = false;
+      dragStartX = e.clientX; dragStartPos = pos;
+      ticker.style.cursor = 'grabbing';
+    });
+    window.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      var delta = dragStartX - e.clientX;
+      pos = dragStartPos + delta;
+      if (pos < 0) pos += halfW;
+      if (pos >= halfW) pos -= halfW;
+      ticker.style.transform = 'translateX(' + (-pos) + 'px)';
+    });
+    window.addEventListener('mouseup', function() {
+      if (!dragging) return;
+      dragging = false; autoPlay = true;
+      ticker.style.cursor = '';
+    });
+
+    // TOUCH drag (mobile)
+    ticker.addEventListener('touchstart', function(e) {
+      dragging = true; autoPlay = false;
+      dragStartX = e.touches[0].clientX; dragStartPos = pos;
+    }, { passive: true });
+    ticker.addEventListener('touchmove', function(e) {
+      if (!dragging) return;
+      var delta = dragStartX - e.touches[0].clientX;
+      pos = dragStartPos + delta;
+      if (pos < 0) pos += halfW;
+      if (pos >= halfW) pos -= halfW;
+      ticker.style.transform = 'translateX(' + (-pos) + 'px)';
+    }, { passive: true });
+    ticker.addEventListener('touchend', function() {
+      dragging = false; autoPlay = true;
+    });
   }
 
   // Scroll reveal
