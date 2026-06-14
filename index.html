@@ -21,16 +21,23 @@
       position:fixed; top:0; left:0; right:0; z-index:100;
       display:flex; align-items:center; justify-content:space-between;
       padding:0 2.5rem; height:68px;
-      background:rgba(8,8,8,0.92); backdrop-filter:blur(14px);
-      border-bottom:1px solid var(--border);
+      background:transparent;
+      border-bottom:1px solid transparent;
+      transition:background 0.5s ease, border-color 0.5s ease, backdrop-filter 0.5s ease;
+    }
+    nav.scrolled {
+      background:rgba(8,8,8,0.08);
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+      border-bottom:1px solid rgba(255,255,255,0.03);
     }
     .nav-logo { text-decoration:none; display:flex; align-items:center; line-height:1; }
     .nav-links { display:flex; gap:2rem; list-style:none; }
     .nav-links a {
-      color:var(--muted); text-decoration:none; font-size:0.9rem;
+      color:rgba(255,255,255,0.7); text-decoration:none; font-size:0.9rem;
       font-weight:500; letter-spacing:0.04em; text-transform:uppercase; transition:color 0.2s;
     }
-    .nav-links a:hover { color:var(--accent); }
+    .nav-links a:hover { color:#fff; }
     .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
     .hamburger span { width:24px; height:2px; background:var(--text); display:block; }
 
@@ -85,6 +92,9 @@
     .container { max-width:1200px; margin:0 auto; }
 
     /* ABOUT */
+    #about-heading, #team-heading, #sponsors-heading {
+      scroll-margin-top: 88px;
+    }
     #about { background:var(--bg2); }
     .about-center {
       max-width:780px; margin:0 auto; text-align:center;
@@ -181,15 +191,21 @@
     .team-card-icon-btn svg { width:15px; height:15px; fill:var(--text); }
 
     /* SPONSORS */
-    #sponsors { background:var(--bg); }
-    .sponsors-center { max-width:700px; margin:0 auto; text-align:center; }
+    #sponsors { background:var(--bg); padding:10rem 2.5rem; }
+    .sponsors-center { max-width:800px; margin:0 auto; text-align:center; }
     .sponsor-logos {
-      display:flex; flex-wrap:wrap; align-items:center;
-      justify-content:center; gap:4rem; margin-top:2.5rem;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      gap:3.5rem; margin-top:4rem;
     }
     .sponsor-logo-item { display:flex; align-items:center; justify-content:center; }
-    .sponsor-logo-item img { height:60px; width:auto; filter:brightness(0) invert(1); opacity:0.85; transition:opacity 0.2s; }
+    .sponsor-logo-item img {
+      width:auto; filter:brightness(0) invert(1);
+      opacity:0.9; transition:opacity 0.2s; display:block;
+    }
     .sponsor-logo-item img:hover { opacity:1; }
+    .sponsor-logo-item.primary img { height:110px; }
+    .sponsor-logo-item.secondary img { height:70px; }
 
     /* CONTACT */
     #contact { background:var(--bg2); }
@@ -203,18 +219,16 @@
     .contact-card a:hover { text-decoration:underline; }
 
     /* FOOTER */
-    footer { background:#0b0c11; padding:3.5rem 3rem 2rem; }
+    footer { background:#0b0c11; padding:1.5rem 3rem; }
     .f-wrap { max-width:1200px; margin:0 auto; }
     .f-grid {
       display:grid;
       grid-template-columns:1fr 1fr 1fr;
       gap:2rem;
-      padding-bottom:2.5rem;
-      border-bottom:1px solid rgba(255,255,255,0.07);
       align-items:center;
     }
     .f-logo { display:flex; align-items:center; }
-    .f-logo img { height:64px; width:auto; mix-blend-mode:lighten; display:block; }
+    .f-logo img { height:52px; width:auto; mix-blend-mode:lighten; display:block; }
     .f-contact { text-align:center; }
     .f-col h5 { font-size:0.82rem; font-weight:600; color:#fff; margin-bottom:1rem; letter-spacing:0.01em; }
     .f-col .f-name { display:block; color:#fff; font-size:0.88rem; font-weight:600; margin-bottom:0.2rem; }
@@ -260,12 +274,12 @@
 <!-- NAV -->
 <nav>
   <a href="#" class="nav-logo">
-    <img src="Main.svg" alt="" style="height:40px;width:auto;mix-blend-mode:lighten;display:block;"/>
+    <img src="Main.svg" alt="" style="height:52px;width:auto;mix-blend-mode:lighten;display:block;"/>
   </a>
   <ul class="nav-links">
     <li><a href="#hero">Home</a></li>
-    <li><a href="#about">About</a></li>
-    <li><a href="#team">Team</a></li>
+    <li><a href="#about-heading">About</a></li>
+    <li><a href="#team-heading">Members</a></li>
     <li><a href="rover-3d.html">Rover</a></li>
     <li><a href="#about">Blog</a></li>
   </ul>
@@ -287,8 +301,7 @@
 <section id="about">
   <div class="container">
     <div class="about-center reveal">
-      <p class="section-label">About Us</p>
-      <h2 class="section-title">Where Technology Meets Purpose</h2>
+      <h2 class="section-title" id="about-heading">How We Started</h2>
       <p class="section-body">
         USN Argentum was founded after USN and Kongsberg initiated a call for a new student organization that would contribute to emerging technology. A competition was held among student groups, and we won. From that moment, we set out to build a fully autonomous rescue rover — a team of 10 students driven by the belief that technology can save lives.
       </p>
@@ -303,8 +316,7 @@
 <section id="team">
   <div class="container">
     <div class="team-intro reveal">
-      <p class="section-label">The People</p>
-      <h2 class="section-title">Meet the Team</h2>
+      <h2 class="section-title" id="team-heading">Members</h2>
       <p class="section-body">10 students from USN across mechanical, electronics, software and operations</p>
     </div>
   </div>
@@ -440,13 +452,12 @@
 <section id="sponsors">
   <div class="container reveal">
     <div class="sponsors-center">
-      <p class="section-label">Support</p>
-      <h2 class="section-title">Sponsors</h2>
+      <h2 class="section-title" id="sponsors-heading">Sponsors</h2>
       <div class="sponsor-logos">
-        <div class="sponsor-logo-item">
+        <div class="sponsor-logo-item primary">
           <img src="kongsberg-w.svg" alt="Kongsberg"/>
         </div>
-        <div class="sponsor-logo-item">
+        <div class="sponsor-logo-item secondary">
           <img src="USN-logo_hvit_medTekst.png" alt="USN"/>
         </div>
       </div>
@@ -499,7 +510,26 @@
 </footer>
 
 <script>
-  // Duplicate ticker cards for seamless loop
+  // Nav — fully transparent at top, very lightly tinted as you scroll
+  var nav = document.querySelector('nav');
+  function updateNav() {
+    var scrollY = window.scrollY;
+    if (scrollY < 10) {
+      nav.style.background = 'transparent';
+      nav.style.borderBottomColor = 'transparent';
+      nav.style.backdropFilter = 'none';
+      nav.style.webkitBackdropFilter = 'none';
+    } else {
+      // opacity scales from 0.0 at top to max 0.12 after 300px scroll
+      var opacity = Math.min(scrollY / 300 * 0.12, 0.12);
+      nav.style.background = 'rgba(8,8,8,' + opacity + ')';
+      nav.style.borderBottomColor = 'rgba(255,255,255,' + (opacity * 0.2) + ')';
+      nav.style.backdropFilter = 'blur(6px)';
+      nav.style.webkitBackdropFilter = 'blur(6px)';
+    }
+  }
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
   var ticker = document.getElementById('teamTicker');
   if (ticker) {
     var clone = ticker.innerHTML;
