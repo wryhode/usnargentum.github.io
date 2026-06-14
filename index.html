@@ -127,7 +127,7 @@
     @media(max-width:600px) { .about-goals { grid-template-columns:1fr; } }
 
     /* TEAM */
-    #team { background:var(--bg2); overflow:hidden; }
+    #team { background:var(--bg2); overflow:hidden; padding:8rem 0; }
     .team-intro { margin-bottom:3rem; text-align:center; }
     .team-intro .section-body { margin:0 auto; }
 
@@ -148,7 +148,7 @@
       100% { transform:translateX(-50%); }
     }
     .team-card {
-      flex-shrink:0; width:220px;
+      flex-shrink:0; width:300px;
       background:transparent;
       text-align:left;
     }
@@ -192,7 +192,7 @@
     .team-card-icon-btn svg { width:15px; height:15px; fill:var(--text); }
 
     /* SPONSORS */
-    #sponsors { background:var(--bg); padding:10rem 2.5rem; }
+    #sponsors { background:var(--bg); padding:14rem 2.5rem; }
     .sponsors-center { max-width:800px; margin:0 auto; text-align:center; }
     .sponsor-logos {
       display:flex; flex-direction:column;
@@ -205,8 +205,8 @@
       opacity:0.9; transition:opacity 0.2s; display:block;
     }
     .sponsor-logo-item img:hover { opacity:1; }
-    .sponsor-logo-item.primary img { height:110px; }
-    .sponsor-logo-item.secondary img { height:70px; }
+    .sponsor-logo-item.primary img { height:160px; }
+    .sponsor-logo-item.secondary img { height:100px; }
 
     /* CONTACT */
     #contact { background:var(--bg2); }
@@ -288,11 +288,13 @@
       .about-goal-card { padding:1.2rem; }
       .about-goal-card h3 { font-size:1.1rem; }
       .about-goals { gap:1rem; }
-      #sponsors { padding:3rem 1.2rem; }
-      .sponsor-logos { gap:2rem; margin-top:2rem; }
-      .sponsor-logo-item.primary img { height:60px; }
-      .sponsor-logo-item.secondary img { height:40px; }
-      .team-card { width:160px; }
+      #sponsors { padding:0 1.2rem; height:100svh; display:flex; align-items:center; justify-content:center; }
+      .sponsors-center { width:100%; }
+      .sponsor-logos { gap:3rem; margin-top:2.5rem; }
+      .sponsor-logo-item.primary img { height:80px; }
+      .sponsor-logo-item.secondary img { height:55px; }
+      #team { padding:0; height:100svh; display:flex; flex-direction:column; justify-content:center; }
+      .team-card { width:140px; }
       .f-grid { grid-template-columns:1fr; text-align:left; gap:1.5rem; }
       .f-socials { justify-content:flex-start; }
       .f-socials-col { align-items:flex-start; }
@@ -312,7 +314,7 @@
         margin-bottom:1.5rem;
       }
       .f-mobile-logo img {
-        height:150px; width:auto; mix-blend-mode:lighten; display:block;
+        height:80px; width:auto; mix-blend-mode:lighten; display:block;
       }
       .f-accordion-item {
         border-top:1px solid rgba(255,255,255,0.1);
